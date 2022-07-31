@@ -1,5 +1,5 @@
 require("dotenv").config();
-import { Client, Message, Partials } from "discord.js";
+import { ActivityType, Client, Message, Partials } from "discord.js";
 import { sendColor } from "./util/sendColor";
 
 export const client = new Client({
@@ -17,6 +17,11 @@ client.on("messageCreate", async (message: Message) => {
 
 client.on("ready", async () => {
     if (!client.user || !client.application) return;
+
+    client.user.setPresence({
+        activities: [{ name: `powered by hop.io`, type: ActivityType.Playing }],
+        status: "dnd",
+    });
 
     // nice green color cause why not
     console.log(`\u001b[1;32m${client.user.username} is online. \u001b[0m`);
