@@ -1,4 +1,5 @@
-require("dotenv").config();
+import "dotenv/config";
+
 import { ActivityType, Client, Message, Partials } from "discord.js";
 import { sendColor } from "./util/sendColor";
 
