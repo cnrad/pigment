@@ -4,15 +4,17 @@ import { colorRegex } from "./colorRegex";
 
 export const sendColor = (message: Message) => {
     const m = message.content.toLowerCase();
+    let color = undefined;
     const substrColor = (s: string) => {
         let result = m.substring(m.indexOf(`${s}(`), m.indexOf(")", m.indexOf(`${s}(`)) + 1);
         return result !== m.substring(0, m.indexOf(")") + 1) ? result : undefined; // If color doesn't actually match, return undefined
     };
-    let color = undefined;
 
     if (colorRegex.test(m.replace(/ /g, ""))) {
+        // If the color is the entire message
         color = m.replace(/ /g, "");
     } else {
+        // If the color is somewhere in the message
         let hexColor = m
             .replace(/\n/g, " ")
             .split(" ")
@@ -22,10 +24,10 @@ export const sendColor = (message: Message) => {
         let hslColor = substrColor("hsl");
         let hslaColor = substrColor("hsla");
 
-        color = hexColor ?? rgbColor ?? rgbaColor ?? hslColor ?? hslaColor;
+        color = hexColor ?? rgbColor ?? rgbaColor ?? hslColor ?? hslaColor; // Go through all of them until it finds whichever is valid
         if (!color) return;
 
-        color = color.replace(/ /g, "");
+        color = color.replace(/ /g, ""); // Remove spaces so colorRegex works
 
         const isColor = colorRegex.test(color);
         if (!isColor) return message.channel.send("`Invalid color.`");

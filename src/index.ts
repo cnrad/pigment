@@ -1,6 +1,5 @@
 require("dotenv").config();
-import { Canvas, createCanvas } from "canvas";
-import { AttachmentBuilder, Client, IntentsBitField, Message, Partials } from "discord.js";
+import { Client, Message, Partials } from "discord.js";
 import { sendColor } from "./util/sendColor";
 
 export const client = new Client({
@@ -8,7 +7,6 @@ export const client = new Client({
     intents: ["Guilds", "GuildMessages", "MessageContent"],
 });
 
-console.log("Bot is starting...");
 client.login(process.env.TOKEN);
 
 // Listen for messages w/ color in them
@@ -18,9 +16,8 @@ client.on("messageCreate", async (message: Message) => {
 });
 
 client.on("ready", async () => {
-    if (!client.user || !client.application) {
-        return;
-    }
+    if (!client.user || !client.application) return;
 
-    console.log(`${client.user.username} is online.`);
+    // nice green color cause why not
+    console.log(`\u001b[1;32m${client.user.username} is online. \u001b[0m`);
 });
