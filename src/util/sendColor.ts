@@ -30,7 +30,7 @@ export const sendColor = (message: Message) => {
         color = color.replace(/ /g, ""); // Remove spaces so colorRegex works
 
         const isColor = colorRegex.test(color);
-        if (!isColor) return message.channel.send({ content: "`Invalid color.`", reply: { messageReference: message, failIfNotExists: false } });
+        if (!isColor) return;
     }
 
     const canvas: Canvas = createCanvas(200, 50);
