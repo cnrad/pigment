@@ -30,7 +30,7 @@ export const sendColor = (message: Message) => {
         color = color.replace(/ /g, ""); // Remove spaces so colorRegex works
 
         const isColor = colorRegex.test(color);
-        if (!isColor) return message.channel.send("`Invalid color.`");
+        if (!isColor) return message.channel.send({ content: "`Invalid color.`", reply: { messageReference: message, failIfNotExists: false } });
     }
 
     const canvas: Canvas = createCanvas(200, 50);
@@ -40,6 +40,6 @@ export const sendColor = (message: Message) => {
 
     const image = new AttachmentBuilder(canvas.toBuffer(), { name: "image.png" });
     message.channel
-        .send({ content: `\`${color}\``, files: [image] })
-        .catch(() => console.log("Failed to send message."));
+      .send({ content: `\`${color}\``, files: [image], reply: { messageReference: message, failIfNotExists: false } })
+      .catch(() => console.log("Failed to send message."));
 };
