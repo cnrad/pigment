@@ -39,5 +39,7 @@ export const sendColor = (message: Message) => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const image = new AttachmentBuilder(canvas.toBuffer(), { name: "image.png" });
-    message.channel.send({ content: `\`${color}\``, files: [image], reply: { messageReference: message, failIfNotExists: false } });
+    message.channel
+      .send({ content: `\`${color}\``, files: [image], reply: { messageReference: message, failIfNotExists: false } })
+      .catch(() => console.log("Failed to send message."));
 };
