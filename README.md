@@ -8,3 +8,8 @@ Add **Pigment** to your server [here](https://discord.com/api/oauth2/authorize?c
 
 ###### **Have any features you'd like to see?** Pigment is open source, so feel free to contribute and improve the bot for everyone :)
 
+----
+
+### Limitations
+- Pigment will not recognize multiple color strings in the message, only the first one it finds
+- rgb, rgba, hsl, and hsla colors must be separated by comma (e.g. `rgb(10, 10, 10)`), it will not work with spaces (`rgb(10 10 10)`)
